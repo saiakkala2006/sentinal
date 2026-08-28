@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sentinel Bulk Test — run_20260828_144403</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{--bg:#0d1117;--sf:#161b22;--bd:#30363d;--tx:#c9d1d9;--ac:#58a6ff;--gr:#3fb950;--rd:#f85149;--yl:#d29922;--pu:#bc8cff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:'Segoe UI',system-ui,sans-serif;padding:24px}
+h1{font-size:28px;color:#fff;margin-bottom:4px} h2{font-size:17px;color:var(--ac);margin-bottom:14px}
+.meta{color:#8b949e;font-size:13px;margin-bottom:26px}
+.section{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:22px;margin-bottom:22px}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:18px}
+.sc{background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:14px;text-align:center}
+.sv{font-size:26px;font-weight:700;color:#fff} .sl{font-size:11px;color:#8b949e;margin-top:3px;text-transform:uppercase}
+.ab .sv{color:var(--ac)} .ag .sv{color:var(--gr)} .ar .sv{color:var(--rd)}
+.ay .sv{color:var(--yl)} .ap .sv{color:var(--pu)} .ao .sv{color:#ff8c00}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.cw{background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:14px}
+.cw canvas{max-height:270px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--bd);text-align:left}
+th{color:#8b949e;font-weight:600;background:var(--bg)}
+tr:hover td{background:rgba(88,166,255,.05)}
+.cmt{max-width:400px;margin-top:14px} .cmt td{text-align:center;font-weight:700;font-size:14px}
+.tp,.tn{color:var(--gr)} .fp,.fn{color:var(--rd)}
+@media(max-width:640px){.charts{grid-template-columns:1fr}}
+</style></head><body>
+<h1>🛡️ Sentinel — Bulk Test Report</h1>
+<p class="meta">Run: <strong>run_20260828_144403</strong> &nbsp;·&nbsp; 2026-08-28 14:51:46 &nbsp;·&nbsp; Wall-time: 461.4s &nbsp;·&nbsp; Throughput: 16.1 emails/s</p>
+
+<div class="section">
+  <h2>📊 Summary</h2>
+  <div class="sg">
+    <div class="sc"><div class="sv">7,446</div><div class="sl">Total</div></div>
+    <div class="sc ag"><div class="sv">6,741</div><div class="sl">Successful</div></div>
+    <div class="sc ar"><div class="sv">705</div><div class="sl">Errors</div></div>
+    <div class="sc ay"><div class="sv">29.17</div><div class="sl">Avg Risk</div></div>
+    <div class="sc ao"><div class="sv">61.0</div><div class="sl">Max Risk</div></div>
+    <div class="sc ab"><div class="sv">1238.3ms</div><div class="sl">Avg Latency</div></div>
+    <div class="sc ap"><div class="sv">4644</div><div class="sl">Campaigns</div></div>
+    <div class="sc ag"><div class="sv">0</div><div class="sl">Healings</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>📈 Distribution Charts</h2>
+  <div class="charts">
+    <div class="cw"><p style="font-size:12px;color:#8b949e;margin-bottom:8px">ACTIONS</p><canvas id="aC"></canvas></div>
+    <div class="cw"><p style="font-size:12px;color:#8b949e;margin-bottom:8px">SEVERITY</p><canvas id="sC"></canvas></div>
+    <div class="cw"><p style="font-size:12px;color:#8b949e;margin-bottom:8px">RISK HISTOGRAM</p><canvas id="rC"></canvas></div>
+    <div class="cw"><p style="font-size:12px;color:#8b949e;margin-bottom:8px">TOP COUNTRIES</p><canvas id="cC"></canvas></div>
+  </div>
+</div>
+<div class="section">
+  <h2>🚨 Top 25 Highest-Risk Emails</h2>
+  <table><thead><tr><th>File</th><th>Risk</th><th>Severity</th><th>Action</th><th>From</th><th>Country</th><th>SPF</th><th>DKIM</th><th>DMARC</th></tr></thead>
+  <tbody><tr><td title='C:\Users\saiak\Downloads\EPVME-Dataset-main\EPVME-Dataset-main\3\6f5e7ac7db9ebd2dccb6a6c270d8bcf0.eml'>6f5e7ac7db9ebd2dccb6a6c270d8bcf0.eml</td><td>61.0</td><td><span style="background:#ff8c00;color:#fff;padding:2px 7px;border-radius:4px;font-size:11px">HIGH</span></td><td>ALERT</td><td>ceg_ir-sec.um.a.2.105071@joinmail.c</td><td>None</td><td>None</td><td>None</td><td>None</td></tr><tr><td title='C:\Users\saiak\Downloads\EPVME-Dataset-main\EPVME-Dataset-main\3\a277d3947632d65c662e9423de759d44.eml'>a277d3947632d65c662e9423de759d44.eml</td><td>52.0</td><td><span style="background:#ff8c00;color:#fff;padding:2px 7px;border-radius:4px;font-size:11px">HIGH</span></td><td>ALERT</td><td>thomas.reichelderfer@enron.com</td><td>None</td><td>None</td><td>None</td><td>None</td></tr><tr><td title='C:\Users\saiak\Downloads\EPVME-Dataset-main\EPVME-Dataset-main\3\f30c6718ff83c17865ca8dd1f5ed7f44.eml'>f30c6718ff83c17865ca8dd1f5ed7f44.eml</td><td>52.0</td><td><span style="background:#ff8c00;color:#fff;padding:2px 7px;border-radius:4px;font-size:11px">HIGH</span></td><td>ALERT</td><td>lmhorne@test.rr.com</td><td>None</td><td>None</td><td>None</td><td>None</td></tr><tr><td title='C:\Users\saiak\Downloads\EPVME-Dataset-main\EPVME-Dataset-main\3\5cb9d66de2ca38a2ee08fb535ff5e903.eml'>5cb9d66de2ca38a2ee08fb535ff5e903.eml</td><td>52.0</td><td><span style="background:#ff8c00;color:#fff;padding:2px 7px;border-radius:4px;font-size:11px">HIGH</span></td><td>ALERT</td><td>womack@tigfirstsource.com</td><td>None</td><td>None</td><td>None</td><td>None</td></tr><tr><td title='C:\Users\saiak\Downloads\EPVME-Dataset-main\EPVME-Dataset-main\3\d731f576661b40009d3c583ad845b3f9.eml'>d731f576661b40009d3c583ad845b3f9.eml</td><td>52.0</td><td><span style="background:#ff8c00;color:#fff;padding:2px 7px;border-radius:4px;font-size:11px">HIGH</span></td><td>ALERT</td><td>bxqnbvsvxbny@hotmail.com</td><td>None</td><td>None</td><td>None</td><td>None</td></tr><tr><td title='C:\Users\saiak\Downloads\EPVME-Dataset-main\EPVME-Dataset-main\3\b1910a7f0f887d4dbbceffbea713800c.eml'>b1910a7f0f887d4dbbceffbea713800c.eml</td><td>52.0</td><td><span style="background:#ff8c00;color:#fff;padding:2px 7px;border-radius:4px;font-size:11px">HIGH</span></td><td>ALERT</td><td>virginia.c.levenback@test.williams.</td><td>None</td><td>None</td><td>None</td><td>None</td></tr></tbody></table>
+</div>
+<script>
+const G={responsive:true,plugins:{legend:{labels:{color:'#c9d1d9',font:{size:11}}}},scales:{x:{ticks:{color:'#8b949e'},grid:{color:'#21262d'}},y:{ticks:{color:'#8b949e'},grid:{color:'#21262d'}}}};
+new Chart(document.getElementById('aC'),{type:'doughnut',data:{labels:["REVIEW", "ALLOW", "ALERT"],datasets:[{data:[6655, 80, 6],backgroundColor:['#3fb950','#d29922','#f85149','#58a6ff','#bc8cff'],borderWidth:0}]},options:{plugins:G.plugins}});
+new Chart(document.getElementById('sC'),{type:'bar',data:{labels:["MEDIUM", "LOW", "HIGH"],datasets:[{data:[6655, 80, 6],backgroundColor:["#ffd700", "#00c851", "#ff8c00"],borderRadius:4}]},options:{...G,plugins:{...G.plugins,legend:{display:false}}}});
+new Chart(document.getElementById('rC'),{type:'bar',data:{labels:["0-10", "10-20", "20-30", "30-40", "40-50", "50-60", "60-70", "70-80", "80-90", "90-100"],datasets:[{label:'Emails',data:[0, 78, 6058, 47, 552, 5, 1, 0, 0, 0],backgroundColor:'#58a6ff88',borderColor:'#58a6ff',borderWidth:1,borderRadius:3}]},options:G});
+new Chart(document.getElementById('cC'),{type:'bar',data:{labels:[],datasets:[{label:'Emails',data:[],backgroundColor:'#bc8cff88',borderColor:'#bc8cff',borderWidth:1,borderRadius:3}]},options:{...G,indexAxis:'y'}});
+</script></body></html>

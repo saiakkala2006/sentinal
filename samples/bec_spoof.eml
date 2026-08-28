@@ -1,0 +1,19 @@
+From: "CEO Tim Steiner" <tim.steiner@acme-corp.com>
+To: target.user@acme-corp.com
+Subject: Quick confidential request - wire transfer approval
+Date: Sun, 24 Aug 2026 23:45:00 +0000
+Message-ID: <NJK9812984128.89123@sec-update-portal.xyz>
+Return-Path: <exec-drop@wire-processing-fast.org>
+Authentication-Results: mx.google.com;
+ spf=fail (google.com: domain of tim.steiner@acme-corp.com does not designate 104.244.76.13 as permitted sender) smtp.mailfrom=exec-drop@wire-processing-fast.org;
+ dkim=fail;
+ dmarc=fail (p=REJECT)
+X-Originating-IP: [104.244.76.13]
+X-Sender-IP: 104.244.76.13
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Received: from internal-relay.sec-update-portal.xyz (internal-relay.sec-update-portal.xyz [104.244.76.13])
+	by mail.acme-corp.com (8.14.4/8.14.4) with ESMTP id v810239123;
+	Sun, 24 Aug 2026 23:45:02 +0000
+
+Are you at your desk? Need an urgent wire processing for vendor acquisition.

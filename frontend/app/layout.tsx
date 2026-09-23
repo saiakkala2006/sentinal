@@ -13,17 +13,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className="bg-[#070B14] text-slate-100 min-h-screen antialiased selection:bg-cyan-500 selection:text-black">
+    <html lang="en">
+      <body className="bg-[#F5F2EC] text-[#2C2A26] min-h-screen antialiased selection:bg-green-200 selection:text-green-900">
         <Toaster
           position="top-right"
           toastOptions={{
             duration: 4000,
             style: {
-              background: '#111827',
-              color: '#F8FAFC',
-              border: '1px solid rgba(6, 182, 212, 0.3)',
-              boxShadow: '0 10px 25px rgba(0, 0, 0, 0.5)',
+              background: '#FDFCF8',
+              color: '#2C2A26',
+              border: '1px solid rgba(74, 124, 89, 0.3)',
+              boxShadow: '0 8px 24px rgba(74, 124, 89, 0.12), 0 2px 8px rgba(0,0,0,0.06)',
+              borderRadius: '12px',
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '13px',
+            },
+            success: {
+              iconTheme: { primary: '#4A7C59', secondary: '#FDFCF8' },
+            },
+            error: {
+              iconTheme: { primary: '#B85C6A', secondary: '#FDFCF8' },
             },
           }}
         />

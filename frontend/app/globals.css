@@ -1,49 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #070B14;
-  --foreground: #F8FAFC;
+  --background: #F5F2EC;
+  --surface: #FDFCF8;
+  --foreground: #2C2A26;
+  --muted: #7A7368;
+  --border: #DDD8CE;
+  --green: #4A7C59;
+  --mint: #7EBC8A;
+  --sage: #A8C5A0;
+  --cream: #F0EBE1;
+  --sand: #E8E0D0;
+  --amber: #C49A3C;
+  --rose: #B85C6A;
+  --sky: #5B8DB8;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   overflow-x: hidden;
 }
 
-/* Custom Cyber Glassmorphism */
+/* Light Glassmorphism panels */
 .glass-panel {
-  background: rgba(17, 24, 39, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(253, 252, 248, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(221, 216, 206, 0.7);
+  box-shadow: 0 2px 16px rgba(74, 124, 89, 0.06), 0 1px 4px rgba(0,0,0,0.04);
 }
 
 .glass-panel-glow {
-  background: rgba(17, 24, 39, 0.85);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(6, 182, 212, 0.25);
-  box-shadow: 0 0 25px rgba(6, 182, 212, 0.1);
+  background: rgba(253, 252, 248, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(74, 124, 89, 0.25);
+  box-shadow: 0 4px 24px rgba(74, 124, 89, 0.12), 0 1px 6px rgba(0,0,0,0.05);
 }
 
-/* Custom Scrollbar */
+/* Leaf pattern background utility */
+.bg-leaf-pattern {
+  background-image: radial-gradient(circle, rgba(74, 124, 89, 0.07) 1px, transparent 1px);
+  background-size: 3rem 3rem;
+}
+
+/* Custom Scrollbar — warm stone tones */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0B0F19;
+  background: #EDE8E0;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1E293B;
+  background: #C5BFB5;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #06B6D4;
+  background: #4A7C59;
+}
+
+/* Smooth transitions everywhere */
+*, *::before, *::after {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Selection highlight */
+::selection {
+  background-color: rgba(74, 124, 89, 0.25);
+  color: #2C2A26;
 }

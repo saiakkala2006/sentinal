@@ -7,14 +7,12 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import {
   Shield,
-  ShieldAlert,
   ShieldCheck,
   UploadCloud,
   FileText,
   Activity,
   Zap,
   Globe,
-  Radio,
   Cpu,
   RefreshCw,
   EyeOff,
@@ -177,7 +175,6 @@ export default function DashboardPage() {
     setAnalyzing(true);
     const toastId = toast.loading(`Loading test artifact: ${sampleName}...`);
     try {
-      // Create synthetic sample file content
       let emlContent = '';
       if (sampleName === 'phishing.eml') {
         emlContent = `From: "Security Team IT" <support@sec-update-portal.xyz>
@@ -241,19 +238,26 @@ Are you at your desk? Urgent wire request.`;
     }
   };
 
+  const tabClass = (tab: string) =>
+    `pb-2 border-b-2 transition-all font-mono text-xs ${
+      activeTab === tab
+        ? 'border-[#4A7C59] text-[#4A7C59] font-bold'
+        : 'border-transparent text-[#7A7368] hover:text-[#2C2A26]'
+    }`;
+
   return (
-    <div className="min-h-screen bg-[#070B14] text-slate-100 font-sans pb-16">
+    <div className="min-h-screen bg-[#F5F2EC] text-[#2C2A26] font-sans pb-16">
       {/* Top App Header */}
-      <header className="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-6 h-18 py-3 flex items-center justify-between">
+      <header className="border-b border-[#DDD8CE] bg-[#FDFCF8]/90 backdrop-blur-md sticky top-0 z-30 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Link href="/" className="flex items-center space-x-3 group">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
-                <Shield className="w-5 h-5 text-black font-bold" />
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#4A7C59] to-[#7EBC8A] flex items-center justify-center shadow-md shadow-[#4A7C59]/20 group-hover:scale-105 transition-transform">
+                <Shield className="w-5 h-5 text-white" />
               </div>
               <div>
-                <span className="text-lg font-black tracking-wider text-white font-mono">SENTINEL</span>
-                <span className="ml-2 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-800 font-mono">
+                <span className="text-lg font-black tracking-wider text-[#2C2A26] font-mono">SENTINEL</span>
+                <span className="ml-2 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#4A7C59]/10 text-[#4A7C59] border border-[#4A7C59]/25 font-mono">
                   COMMAND CENTER
                 </span>
               </div>
@@ -263,62 +267,34 @@ Are you at your desk? Urgent wire request.`;
           <div className="flex items-center space-x-3">
             <button
               onClick={handleSeedBaseline}
-              className="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 text-xs font-mono transition-all"
+              className="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-[#F0EBE1] hover:bg-[#E8E0D0] text-[#4B4540] border border-[#DDD8CE] text-xs font-mono transition-all"
             >
-              <Cpu className="w-3.5 h-3.5 text-purple-400" />
+              <Cpu className="w-3.5 h-3.5 text-[#5B8DB8]" />
               <span>Seed Behavioral Baseline</span>
             </button>
 
             <button
               onClick={loadDashboardData}
-              className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 text-xs transition-all"
+              className="p-2 rounded-xl bg-[#F0EBE1] hover:bg-[#E8E0D0] text-[#4B4540] border border-[#DDD8CE] transition-all"
               title="Refresh Telemetry"
             >
-              <RefreshCw className="w-4 h-4 text-cyan-400" />
+              <RefreshCw className="w-4 h-4 text-[#4A7C59]" />
             </button>
           </div>
         </div>
 
         {/* Sub-Navigation Tabs */}
-        <div className="max-w-7xl mx-auto px-6 flex space-x-6 text-xs font-mono border-t border-slate-900 pt-2 pb-1">
-          <button
-            onClick={() => setActiveTab('overview')}
-            className={`pb-2 border-b-2 transition-all ${
-              activeTab === 'overview'
-                ? 'border-cyan-400 text-cyan-400 font-bold'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
-            }`}
-          >
+        <div className="max-w-7xl mx-auto px-6 flex space-x-6 border-t border-[#EDE8E0] pt-2 pb-1">
+          <button onClick={() => setActiveTab('overview')} className={tabClass('overview')}>
             Live Defense Console
           </button>
-          <button
-            onClick={() => setActiveTab('graph')}
-            className={`pb-2 border-b-2 transition-all ${
-              activeTab === 'graph'
-                ? 'border-cyan-400 text-cyan-400 font-bold'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
-            }`}
-          >
-            Attack Graph & Campaigns ({stats.active_campaigns_count || 0})
+          <button onClick={() => setActiveTab('graph')} className={tabClass('graph')}>
+            Attack Graph &amp; Campaigns ({stats.active_campaigns_count || 0})
           </button>
-          <button
-            onClick={() => setActiveTab('twin')}
-            className={`pb-2 border-b-2 transition-all ${
-              activeTab === 'twin'
-                ? 'border-cyan-400 text-cyan-400 font-bold'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
-            }`}
-          >
+          <button onClick={() => setActiveTab('twin')} className={tabClass('twin')}>
             Digital Twin Profiling
           </button>
-          <button
-            onClick={() => setActiveTab('policies')}
-            className={`pb-2 border-b-2 transition-all ${
-              activeTab === 'policies'
-                ? 'border-cyan-400 text-cyan-400 font-bold'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
-            }`}
-          >
+          <button onClick={() => setActiveTab('policies')} className={tabClass('policies')}>
             Self-Healing Policies ({stats.self_healing_events_count || 0})
           </button>
         </div>
@@ -328,48 +304,48 @@ Are you at your desk? Urgent wire request.`;
       <main className="max-w-7xl mx-auto px-6 pt-6">
         {/* Top Telemetry Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div className="glass-panel p-4 rounded-2xl border border-slate-800">
+          <div className="glass-panel p-4 rounded-2xl">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono text-slate-400">Total Analyzed</span>
-              <FileText className="w-4 h-4 text-cyan-400" />
+              <span className="text-xs font-mono text-[#7A7368]">Total Analyzed</span>
+              <FileText className="w-4 h-4 text-[#4A7C59]" />
             </div>
-            <div className="text-2xl font-black font-mono text-white mt-2">
+            <div className="text-2xl font-black font-mono text-[#2C2A26] mt-2">
               {stats.total_emails_analyzed || history.length}
             </div>
-            <div className="text-[10px] font-mono text-slate-500 mt-1">Metadata-only ingestion</div>
+            <div className="text-[10px] font-mono text-[#9A9188] mt-1">Metadata-only ingestion</div>
           </div>
 
-          <div className="glass-panel p-4 rounded-2xl border border-rose-500/20 bg-rose-500/5">
+          <div className="glass-panel p-4 rounded-2xl border border-[#B85C6A]/20 bg-[#B85C6A]/5">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono text-rose-300">Quarantined Attacks</span>
-              <FolderLock className="w-4 h-4 text-rose-400" />
+              <span className="text-xs font-mono text-[#B85C6A]">Quarantined Attacks</span>
+              <FolderLock className="w-4 h-4 text-[#B85C6A]" />
             </div>
-            <div className="text-2xl font-black font-mono text-rose-400 mt-2">
+            <div className="text-2xl font-black font-mono text-[#B85C6A] mt-2">
               {stats.quarantined_count || 0}
             </div>
-            <div className="text-[10px] font-mono text-rose-500/70 mt-1">Autonomous isolation</div>
+            <div className="text-[10px] font-mono text-[#B85C6A]/60 mt-1">Autonomous isolation</div>
           </div>
 
-          <div className="glass-panel p-4 rounded-2xl border border-purple-500/20 bg-purple-500/5">
+          <div className="glass-panel p-4 rounded-2xl border border-[#5B8DB8]/20 bg-[#5B8DB8]/5">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono text-purple-300">Campaign Clusters</span>
-              <Layers className="w-4 h-4 text-purple-400" />
+              <span className="text-xs font-mono text-[#5B8DB8]">Campaign Clusters</span>
+              <Layers className="w-4 h-4 text-[#5B8DB8]" />
             </div>
-            <div className="text-2xl font-black font-mono text-purple-400 mt-2">
+            <div className="text-2xl font-black font-mono text-[#5B8DB8] mt-2">
               {stats.active_campaigns_count || 0}
             </div>
-            <div className="text-[10px] font-mono text-purple-500/70 mt-1">NetworkX connected components</div>
+            <div className="text-[10px] font-mono text-[#5B8DB8]/60 mt-1">NetworkX connected components</div>
           </div>
 
-          <div className="glass-panel p-4 rounded-2xl border border-amber-500/20 bg-amber-500/5">
+          <div className="glass-panel p-4 rounded-2xl border border-[#C49A3C]/20 bg-[#C49A3C]/5">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono text-amber-300">Self-Healing Updates</span>
-              <Zap className="w-4 h-4 text-amber-400" />
+              <span className="text-xs font-mono text-[#C49A3C]">Self-Healing Updates</span>
+              <Zap className="w-4 h-4 text-[#C49A3C]" />
             </div>
-            <div className="text-2xl font-black font-mono text-amber-400 mt-2">
+            <div className="text-2xl font-black font-mono text-[#C49A3C] mt-2">
               {stats.self_healing_events_count || 0}
             </div>
-            <div className="text-[10px] font-mono text-amber-500/70 mt-1">Dynamic rule auto-patches</div>
+            <div className="text-[10px] font-mono text-[#C49A3C]/60 mt-1">Dynamic rule auto-patches</div>
           </div>
         </div>
 
@@ -383,33 +359,33 @@ Are you at your desk? Urgent wire request.`;
                 {...getRootProps()}
                 className={`lg:col-span-2 glass-panel p-8 rounded-3xl border-2 border-dashed transition-all cursor-pointer flex flex-col items-center justify-center text-center ${
                   isDragActive
-                    ? 'border-cyan-400 bg-cyan-950/30'
-                    : 'border-slate-800 hover:border-cyan-500/40'
+                    ? 'border-[#4A7C59] bg-[#4A7C59]/5'
+                    : 'border-[#C5BFB5] hover:border-[#4A7C59]/50'
                 }`}
               >
                 <input {...getInputProps()} />
-                <div className="w-14 h-14 rounded-2xl bg-cyan-950/60 border border-cyan-800/80 flex items-center justify-center text-cyan-400 mb-4 shadow-lg shadow-cyan-500/10">
+                <div className="w-14 h-14 rounded-2xl bg-[#4A7C59]/10 border border-[#4A7C59]/20 flex items-center justify-center text-[#4A7C59] mb-4 shadow-md shadow-[#4A7C59]/10">
                   <UploadCloud className="w-7 h-7" />
                 </div>
-                <div className="text-base font-bold text-white">
+                <div className="text-base font-bold text-[#2C2A26]">
                   Drop .eml files here to analyze forensic metadata
                 </div>
-                <p className="text-xs text-slate-400 mt-1.5 max-w-md">
+                <p className="text-xs text-[#7A7368] mt-1.5 max-w-md">
                   Strictly zero body parsing. Evaluates authentication headers, hop chains, behavioral Digital Twin deviations, and Bayesian attribution.
                 </p>
-                <div className="mt-4 px-4 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-[11px] font-mono text-cyan-400">
+                <div className="mt-4 px-4 py-1.5 rounded-full bg-[#F0EBE1] border border-[#DDD8CE] text-[11px] font-mono text-[#4A7C59]">
                   Supports single or batch .eml uploads
                 </div>
               </div>
 
               {/* Quick Sample Attack Selector */}
-              <div className="glass-panel p-6 rounded-3xl border border-slate-800 flex flex-col justify-between">
+              <div className="glass-panel p-6 rounded-3xl flex flex-col justify-between">
                 <div>
-                  <div className="text-xs font-mono font-bold uppercase text-slate-300 flex items-center space-x-2 mb-3">
-                    <Terminal className="w-4 h-4 text-cyan-400" />
+                  <div className="text-xs font-mono font-bold uppercase text-[#4B4540] flex items-center space-x-2 mb-3">
+                    <Terminal className="w-4 h-4 text-[#4A7C59]" />
                     <span>Preset Forensic Scenarios</span>
                   </div>
-                  <p className="text-xs text-slate-400 mb-4">
+                  <p className="text-xs text-[#7A7368] mb-4">
                     Instant test cases to demonstrate multi-agent detection, attribution, and self-healing:
                   </p>
                 </div>
@@ -418,46 +394,46 @@ Are you at your desk? Urgent wire request.`;
                   <button
                     onClick={() => handleLoadSample('phishing.eml')}
                     disabled={analyzing}
-                    className="w-full text-left p-3 rounded-2xl bg-rose-950/30 hover:bg-rose-900/40 border border-rose-800/40 text-xs font-mono transition-all flex items-center justify-between text-rose-300 group"
+                    className="w-full text-left p-3 rounded-2xl bg-[#B85C6A]/8 hover:bg-[#B85C6A]/15 border border-[#B85C6A]/25 text-xs font-mono transition-all flex items-center justify-between text-[#B85C6A] group"
                   >
                     <div>
                       <div className="font-bold flex items-center space-x-1.5">
-                        <Flame className="w-3.5 h-3.5 text-rose-400" />
+                        <Flame className="w-3.5 h-3.5" />
                         <span>Credential Phishing (.eml)</span>
                       </div>
-                      <div className="text-[10px] text-rose-400/70 mt-0.5">SPF fail • VPN egress • Windows-1251</div>
+                      <div className="text-[10px] text-[#B85C6A]/60 mt-0.5">SPF fail • VPN egress • Windows-1251</div>
                     </div>
-                    <ArrowRight className="w-4 h-4 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                    <ArrowRight className="w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
                   </button>
 
                   <button
                     onClick={() => handleLoadSample('bec_spoof.eml')}
                     disabled={analyzing}
-                    className="w-full text-left p-3 rounded-2xl bg-amber-950/30 hover:bg-amber-900/40 border border-amber-800/40 text-xs font-mono transition-all flex items-center justify-between text-amber-300 group"
+                    className="w-full text-left p-3 rounded-2xl bg-[#C49A3C]/8 hover:bg-[#C49A3C]/15 border border-[#C49A3C]/25 text-xs font-mono transition-all flex items-center justify-between text-[#C49A3C] group"
                   >
                     <div>
                       <div className="font-bold flex items-center space-x-1.5">
-                        <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
+                        <AlertTriangle className="w-3.5 h-3.5" />
                         <span>Executive Spoof / BEC (.eml)</span>
                       </div>
-                      <div className="text-[10px] text-amber-400/70 mt-0.5">Mismatched Return-Path • Proxy node</div>
+                      <div className="text-[10px] text-[#C49A3C]/60 mt-0.5">Mismatched Return-Path • Proxy node</div>
                     </div>
-                    <ArrowRight className="w-4 h-4 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                    <ArrowRight className="w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
                   </button>
 
                   <button
                     onClick={() => handleLoadSample('benign.eml')}
                     disabled={analyzing}
-                    className="w-full text-left p-3 rounded-2xl bg-emerald-950/30 hover:bg-emerald-900/40 border border-emerald-800/40 text-xs font-mono transition-all flex items-center justify-between text-emerald-300 group"
+                    className="w-full text-left p-3 rounded-2xl bg-[#4A7C59]/8 hover:bg-[#4A7C59]/15 border border-[#4A7C59]/25 text-xs font-mono transition-all flex items-center justify-between text-[#4A7C59] group"
                   >
                     <div>
                       <div className="font-bold flex items-center space-x-1.5">
-                        <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                        <ShieldCheck className="w-3.5 h-3.5" />
                         <span>Legitimate Corporate (.eml)</span>
                       </div>
-                      <div className="text-[10px] text-emerald-400/70 mt-0.5">Full SPF/DKIM/DMARC pass</div>
+                      <div className="text-[10px] text-[#4A7C59]/60 mt-0.5">Full SPF/DKIM/DMARC pass</div>
                     </div>
-                    <ArrowRight className="w-4 h-4 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                    <ArrowRight className="w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
                   </button>
                 </div>
               </div>
@@ -488,52 +464,52 @@ Are you at your desk? Urgent wire request.`;
                   />
 
                   {/* Header Authentication Badges */}
-                  <div className="glass-panel p-6 rounded-3xl border border-slate-800">
-                    <div className="text-xs font-mono font-bold uppercase text-slate-300 mb-4 flex items-center space-x-2">
-                      <Lock className="w-4 h-4 text-cyan-400" />
-                      <span>Cryptographic Auth & Protocol Telemetry</span>
+                  <div className="glass-panel p-6 rounded-3xl">
+                    <div className="text-xs font-mono font-bold uppercase text-[#4B4540] mb-4 flex items-center space-x-2">
+                      <Lock className="w-4 h-4 text-[#4A7C59]" />
+                      <span>Cryptographic Auth &amp; Protocol Telemetry</span>
                     </div>
 
                     <div className="grid grid-cols-3 gap-3 font-mono text-xs text-center">
-                      <div className="p-3 rounded-2xl bg-slate-950/70 border border-slate-800">
-                        <div className="text-slate-500 text-[10px]">SPF Status</div>
+                      <div className="p-3 rounded-2xl bg-[#F0EBE1] border border-[#DDD8CE]">
+                        <div className="text-[#9A9188] text-[10px]">SPF Status</div>
                         <div
                           className={`font-bold mt-1 uppercase ${
                             currentResult.metadata?.spf?.status === 'pass'
-                              ? 'text-emerald-400'
+                              ? 'text-[#4A7C59]'
                               : currentResult.metadata?.spf?.status === 'fail'
-                              ? 'text-rose-400'
-                              : 'text-amber-400'
+                              ? 'text-[#B85C6A]'
+                              : 'text-[#C49A3C]'
                           }`}
                         >
                           {currentResult.metadata?.spf?.status || 'none'}
                         </div>
                       </div>
 
-                      <div className="p-3 rounded-2xl bg-slate-950/70 border border-slate-800">
-                        <div className="text-slate-500 text-[10px]">DKIM Signature</div>
+                      <div className="p-3 rounded-2xl bg-[#F0EBE1] border border-[#DDD8CE]">
+                        <div className="text-[#9A9188] text-[10px]">DKIM Signature</div>
                         <div
                           className={`font-bold mt-1 uppercase ${
                             currentResult.metadata?.dkim?.status === 'pass'
-                              ? 'text-emerald-400'
+                              ? 'text-[#4A7C59]'
                               : currentResult.metadata?.dkim?.status === 'fail'
-                              ? 'text-rose-400'
-                              : 'text-amber-400'
+                              ? 'text-[#B85C6A]'
+                              : 'text-[#C49A3C]'
                           }`}
                         >
                           {currentResult.metadata?.dkim?.status || 'none'}
                         </div>
                       </div>
 
-                      <div className="p-3 rounded-2xl bg-slate-950/70 border border-slate-800">
-                        <div className="text-slate-500 text-[10px]">DMARC Policy</div>
+                      <div className="p-3 rounded-2xl bg-[#F0EBE1] border border-[#DDD8CE]">
+                        <div className="text-[#9A9188] text-[10px]">DMARC Policy</div>
                         <div
                           className={`font-bold mt-1 uppercase ${
                             currentResult.metadata?.dmarc?.status === 'pass'
-                              ? 'text-emerald-400'
+                              ? 'text-[#4A7C59]'
                               : currentResult.metadata?.dmarc?.status === 'fail'
-                              ? 'text-rose-400'
-                              : 'text-amber-400'
+                              ? 'text-[#B85C6A]'
+                              : 'text-[#C49A3C]'
                           }`}
                         >
                           {currentResult.metadata?.dmarc?.status || 'none'}
@@ -542,18 +518,18 @@ Are you at your desk? Urgent wire request.`;
                     </div>
 
                     {/* Metadata summary list */}
-                    <div className="mt-4 p-3.5 rounded-2xl bg-slate-950/50 border border-slate-800/80 font-mono text-[11px] space-y-1.5 text-slate-300">
+                    <div className="mt-4 p-3.5 rounded-2xl bg-[#F0EBE1] border border-[#DDD8CE] font-mono text-[11px] space-y-1.5 text-[#4B4540]">
                       <div>
-                        <span className="text-slate-500">From Header: </span>
-                        <span className="text-slate-200">{currentResult.metadata?.from_addr || currentResult.metadata?.from || 'N/A'}</span>
+                        <span className="text-[#9A9188]">From Header: </span>
+                        <span className="text-[#2C2A26]">{currentResult.metadata?.from_addr || currentResult.metadata?.from || 'N/A'}</span>
                       </div>
                       <div>
-                        <span className="text-slate-500">Return-Path: </span>
-                        <span className="text-amber-300">{currentResult.metadata?.return_path || 'N/A'}</span>
+                        <span className="text-[#9A9188]">Return-Path: </span>
+                        <span className="text-[#C49A3C]">{currentResult.metadata?.return_path || 'N/A'}</span>
                       </div>
                       <div>
-                        <span className="text-slate-500">Subject: </span>
-                        <span className="text-slate-200">{currentResult.metadata?.subject || 'N/A'}</span>
+                        <span className="text-[#9A9188]">Subject: </span>
+                        <span className="text-[#2C2A26]">{currentResult.metadata?.subject || 'N/A'}</span>
                       </div>
                     </div>
                   </div>
@@ -573,19 +549,19 @@ Are you at your desk? Urgent wire request.`;
         {/* Tab 3: Digital Twin Profiling */}
         {activeTab === 'twin' && (
           <div className="space-y-6">
-            <div className="glass-panel p-8 rounded-3xl border border-slate-800">
+            <div className="glass-panel p-8 rounded-3xl">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h3 className="text-xl font-bold text-white">
+                  <h3 className="text-xl font-bold text-[#2C2A26]">
                     User Behavioral Digital Twin (TwinGuard Model)
                   </h3>
-                  <p className="text-xs text-slate-400 mt-1 font-mono">
+                  <p className="text-xs text-[#7A7368] mt-1 font-mono">
                     User ID: secops_admin • Differential Privacy Enabled • Body Free
                   </p>
                 </div>
                 <button
                   onClick={handleSeedBaseline}
-                  className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-mono font-bold transition-all"
+                  className="px-4 py-2 rounded-xl bg-[#4A7C59] hover:bg-[#3D6B4A] text-white text-xs font-mono font-bold transition-all shadow-md"
                 >
                   Re-Train Profile Baseline
                 </button>
@@ -593,35 +569,35 @@ Are you at your desk? Urgent wire request.`;
 
               {twinSummary ? (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="p-5 rounded-2xl bg-slate-950/70 border border-slate-800 font-mono">
-                    <div className="text-xs text-slate-400">Total Analyzed Interactions</div>
-                    <div className="text-3xl font-black text-cyan-400 mt-2">
+                  <div className="p-5 rounded-2xl bg-[#F0EBE1] border border-[#DDD8CE] font-mono">
+                    <div className="text-xs text-[#7A7368]">Total Analyzed Interactions</div>
+                    <div className="text-3xl font-black text-[#4A7C59] mt-2">
                       {twinSummary.total_emails}
                     </div>
-                    <div className="text-[11px] text-slate-500 mt-1">Profile baseline maturity</div>
+                    <div className="text-[11px] text-[#9A9188] mt-1">Profile baseline maturity</div>
                   </div>
 
-                  <div className="p-5 rounded-2xl bg-slate-950/70 border border-slate-800 font-mono">
-                    <div className="text-xs text-slate-400">Unique Hashed Contacts</div>
-                    <div className="text-3xl font-black text-purple-400 mt-2">
+                  <div className="p-5 rounded-2xl bg-[#F0EBE1] border border-[#DDD8CE] font-mono">
+                    <div className="text-xs text-[#7A7368]">Unique Hashed Contacts</div>
+                    <div className="text-3xl font-black text-[#5B8DB8] mt-2">
                       {twinSummary.unique_contacts}
                     </div>
-                    <div className="text-[11px] text-slate-500 mt-1">SHA-256 protected identities</div>
+                    <div className="text-[11px] text-[#9A9188] mt-1">SHA-256 protected identities</div>
                   </div>
 
-                  <div className="p-5 rounded-2xl bg-slate-950/70 border border-slate-800 font-mono">
-                    <div className="text-xs text-slate-400">Trusted Subnet Prefixes</div>
-                    <div className="text-3xl font-black text-emerald-400 mt-2">
+                  <div className="p-5 rounded-2xl bg-[#F0EBE1] border border-[#DDD8CE] font-mono">
+                    <div className="text-xs text-[#7A7368]">Trusted Subnet Prefixes</div>
+                    <div className="text-3xl font-black text-[#7EBC8A] mt-2">
                       {twinSummary.unique_ip_prefixes}
                     </div>
-                    <div className="text-[11px] text-slate-500 mt-1">/24 anonymized networks</div>
+                    <div className="text-[11px] text-[#9A9188] mt-1">/24 anonymized networks</div>
                   </div>
 
-                  <div className="md:col-span-3 p-5 rounded-2xl bg-slate-950/70 border border-slate-800 font-mono">
-                    <div className="text-xs text-slate-400 mb-2">Typical Communication Hours (UTC)</div>
-                    <div className="flex gap-2">
+                  <div className="md:col-span-3 p-5 rounded-2xl bg-[#F0EBE1] border border-[#DDD8CE] font-mono">
+                    <div className="text-xs text-[#7A7368] mb-2">Typical Communication Hours (UTC)</div>
+                    <div className="flex gap-2 flex-wrap">
                       {twinSummary.typical_hours?.map((h: number) => (
-                        <span key={h} className="px-3 py-1 rounded-lg bg-slate-900 text-cyan-300 border border-slate-800 text-xs font-bold">
+                        <span key={h} className="px-3 py-1 rounded-lg bg-[#4A7C59]/10 text-[#4A7C59] border border-[#4A7C59]/20 text-xs font-bold">
                           {h.toString().padStart(2, '0')}:00 UTC
                         </span>
                       ))}
@@ -629,7 +605,7 @@ Are you at your desk? Urgent wire request.`;
                   </div>
                 </div>
               ) : (
-                <div className="text-center py-12 text-slate-500 text-xs font-mono">
+                <div className="text-center py-12 text-[#9A9188] text-xs font-mono">
                   Loading behavioral baseline metrics...
                 </div>
               )}
@@ -640,17 +616,17 @@ Are you at your desk? Urgent wire request.`;
         {/* Tab 4: Self-Healing Policies */}
         {activeTab === 'policies' && (
           <div className="space-y-6">
-            <div className="glass-panel p-8 rounded-3xl border border-slate-800">
+            <div className="glass-panel p-8 rounded-3xl">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h3 className="text-xl font-bold text-white">
+                  <h3 className="text-xl font-bold text-[#2C2A26]">
                     Autonomous Self-Healing Policy State (EvoMail)
                   </h3>
-                  <p className="text-xs text-slate-400 mt-1 font-mono">
+                  <p className="text-xs text-[#7A7368] mt-1 font-mono">
                     Dynamic firewall rules auto-adapted after adversarial challenge evaluations.
                   </p>
                 </div>
-                <div className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-mono font-bold">
+                <div className="px-3 py-1 rounded-full bg-[#4A7C59]/10 text-[#4A7C59] border border-[#4A7C59]/30 text-xs font-mono font-bold">
                   AUTONOMOUS HEALING ACTIVE
                 </div>
               </div>
@@ -659,12 +635,12 @@ Are you at your desk? Urgent wire request.`;
                 <div className="space-y-6">
                   {/* Blocked Domains */}
                   <div>
-                    <div className="text-xs font-mono font-bold uppercase text-slate-300 mb-2">
+                    <div className="text-xs font-mono font-bold uppercase text-[#4B4540] mb-2">
                       Autonomous Blocked Sender Domains ({policiesData.policies.blocked_domains?.length || 0})
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {policiesData.policies.blocked_domains?.map((d: string) => (
-                        <span key={d} className="px-3 py-1 rounded-xl bg-rose-950/40 text-rose-300 border border-rose-800/60 text-xs font-mono">
+                        <span key={d} className="px-3 py-1 rounded-xl bg-[#B85C6A]/10 text-[#B85C6A] border border-[#B85C6A]/25 text-xs font-mono">
                           {d}
                         </span>
                       ))}
@@ -673,12 +649,12 @@ Are you at your desk? Urgent wire request.`;
 
                   {/* Suspicious Off-Hours Matrix */}
                   <div>
-                    <div className="text-xs font-mono font-bold uppercase text-slate-300 mb-2">
+                    <div className="text-xs font-mono font-bold uppercase text-[#4B4540] mb-2">
                       Dynamic Off-Hours Anomaly Matrix (UTC Hours Flagged)
                     </div>
                     <div className="flex flex-wrap gap-1.5">
                       {policiesData.policies.suspicious_hours?.map((h: number) => (
-                        <span key={h} className="px-2.5 py-1 rounded-lg bg-amber-950/40 text-amber-300 border border-amber-800/60 text-xs font-mono">
+                        <span key={h} className="px-2.5 py-1 rounded-lg bg-[#C49A3C]/10 text-[#C49A3C] border border-[#C49A3C]/25 text-xs font-mono">
                           {h.toString().padStart(2, '0')}:00
                         </span>
                       ))}
@@ -687,18 +663,18 @@ Are you at your desk? Urgent wire request.`;
 
                   {/* Audit Trail */}
                   <div>
-                    <div className="text-xs font-mono font-bold uppercase text-slate-300 mb-3">
+                    <div className="text-xs font-mono font-bold uppercase text-[#4B4540] mb-3">
                       Recent Self-Healing Audit Trail
                     </div>
                     <div className="space-y-2 max-h-72 overflow-y-auto pr-2">
                       {policiesData.audit_log?.map((log: any, idx: number) => (
-                        <div key={idx} className="p-3 rounded-xl bg-slate-950/70 border border-slate-800 text-xs font-mono flex items-start justify-between">
+                        <div key={idx} className="p-3 rounded-xl bg-[#F0EBE1] border border-[#DDD8CE] text-xs font-mono flex items-start justify-between">
                           <div>
-                            <span className="text-cyan-400 font-bold">{log.action}: </span>
-                            <span className="text-slate-300">{log.reason || log.description}</span>
-                            {log.target && <span className="text-amber-400"> ({log.target})</span>}
+                            <span className="text-[#4A7C59] font-bold">{log.action}: </span>
+                            <span className="text-[#4B4540]">{log.reason || log.description}</span>
+                            {log.target && <span className="text-[#C49A3C]"> ({log.target})</span>}
                           </div>
-                          <span className="text-[10px] text-slate-500 ml-4 flex-shrink-0">
+                          <span className="text-[10px] text-[#9A9188] ml-4 flex-shrink-0">
                             {log.timestamp ? new Date(log.timestamp).toLocaleTimeString() : ''}
                           </span>
                         </div>
